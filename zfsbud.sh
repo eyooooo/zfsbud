@@ -329,6 +329,7 @@ send_resume() {
 
   if [ ! -v dry_run ]; then
     if [ -v remote_shell ]; then
+      msg "Resuming send to $destination_resume_parent_dataset"
       ! zfs send $raw $verbose -t "$resume_token" | $remote_shell "zfs recv $resume -F -d -u $destination_resume_parent_dataset" && return 1
     else
       ! zfs send $raw $verbose -t "$resume_token" | zfs recv $resume -F -d -u "$destination_resume_parent_dataset" && return 1
